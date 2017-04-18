@@ -32,14 +32,14 @@ if(is_post_request() && request_is_same_domain()) {
     // No loop, only one result
     $user = db_fetch_assoc($users_result);
     if($user) {
-      if(password_verify($password $user['hashed_password']) || $password == 'secret') {
+      if(password_verify($password, $user['hashed_password'])) {
         // Username found, password matches
         log_in_user($user);
         // Redirect to the staff menu after login
         redirect_to('index.php');
       } else {
         // Username found, but password does not match.
-        $errors[] = "Log in was unsuccessful.";
+        $errors[] = "Log in was not successful.";
       }
     } else {
       // No username found
